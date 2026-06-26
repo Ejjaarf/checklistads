@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist Sebelum Running Campaign — @ejjaarf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #050813;
+    --bg-2: #0a0f1f;
+    --surface: #0d1428;
+    --surface-2: #131c3d;
+    --blue: #4d7cff;
+    --blue-glow: #6b8eff;
+    --cyan: #5fb8ff;
+    --cyan-soft: #cfe4ff;
+    --ink: #ffffff;
+    --ink-soft: #b8c4e6;
+    --ink-mute: #6b7898;
+    --green: #4ade80;
+    --yellow: #fbbf24;
+    --red: #f87171;
+    --line: rgba(91, 132, 255, 0.15);
+    --line-strong: rgba(91, 132, 255, 0.3);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  img, svg { display: block; max-width: 100%; }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- shared atoms ---------- */
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(91,132,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(91,132,255,0.05) 1px, transparent 1px);
+    background-size: 38px 38px;
+    pointer-events: none;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,124,255,0.5) 0%, rgba(77,124,255,0.18) 35%, rgba(77,124,255,0.05) 60%, rgba(77,124,255,0) 80%);
+    pointer-events: none;
+  }
+  .gradient-word {
+    background: linear-gradient(135deg, #5fb8ff 0%, #6b8eff 50%, #4d7cff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px 38px;
+    border-radius: 999px;
+    background: var(--blue);
+    color: #ffffff;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover { background: var(--blue-glow); transform: translateY(-1px); }
+  .btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+  .btn-block { width: 100%; }
+
+  section { position: relative; }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(5,8,19,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 720px; margin: 0 auto; padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .nav-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; letter-spacing: 0.03em; color: var(--ink-mute);
+    white-space: nowrap;
+  }
+  .nav-brand b { color: var(--cyan); }
+  .nav-cta {
+    font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 13px;
+    color: var(--ink); background: var(--surface-2);
+    border: 1px solid var(--line-strong); padding: 9px 16px; border-radius: 999px;
+    text-decoration: none; white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 76px 0 56px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-bg-img {
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 720px; max-width: 160%;
+    mix-blend-mode: screen;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--cyan);
+    border: 1px solid var(--line-strong);
+    background: rgba(77,124,255,0.07);
+    padding: 7px 18px; border-radius: 999px;
+    margin-bottom: 26px;
+  }
+  .hero h1 {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 42px; line-height: 1.18; letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .hero p.lead {
+    font-size: 17px; line-height: 1.6; color: var(--ink-soft);
+    max-width: 480px; margin: 0 auto 36px;
+  }
+  .hero-cta-row {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .hero-meta {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink-mute);
+  }
+  .hero-meta b { color: var(--green); }
+
+  /* ---------- INTERACTIVE PREVIEW ---------- */
+  .preview {
+    padding: 8px 0 64px;
+  }
+  .preview-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    padding: 28px 24px 30px;
+    box-shadow: 0 0 60px rgba(77,124,255,0.12);
+  }
+  .preview-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .preview-title {
+    font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 15px; color: var(--ink);
+  }
+  .preview-count {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--cyan);
+  }
+  .progress-track {
+    height: 6px; border-radius: 999px; background: var(--bg-2);
+    overflow: hidden; margin-bottom: 22px;
+    border: 1px solid var(--line);
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+  .demo-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 16px; border-radius: 12px;
+    background: var(--bg-2); border: 1px solid var(--line);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    user-select: none;
+  }
+  .demo-item:hover { border-color: var(--line-strong); }
+  .demo-item.checked {
+    background: rgba(74,222,128,0.06);
+    border-color: rgba(74,222,128,0.35);
+  }
+  .demo-check {
+    flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px;
+    border-radius: 6px; border: 1.5px solid var(--blue);
+    background: rgba(77,124,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .demo-item.checked .demo-check {
+    background: var(--green); border-color: var(--green);
+  }
+  .demo-check svg { opacity: 0; transition: opacity 0.15s ease; }
+  .demo-item.checked .demo-check svg { opacity: 1; }
+  .demo-text { font-size: 14.5px; color: var(--ink-soft); line-height: 1.45; padding-top: 1px; }
+  .demo-item.checked .demo-text { color: var(--ink); }
+  .preview-footnote {
+    margin-top: 16px;
+    font-size: 13.5px; color: var(--ink-mute); text-align: center;
+    font-style: italic;
+  }
+  .preview-locked {
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-mute);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px dashed var(--line-strong);
+  }
+
+  /* ---------- PAIN SECTION ---------- */
+  .pain {
+    padding: 64px 0;
+    border-top: 1px solid var(--line);
+  }
+  .section-eyebrow-row { text-align: center; margin-bottom: 18px; }
+  .section-title {
+    font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 28px;
+    color: var(--ink); text-align: center; letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .section-sub {
+    text-align: center; font-size: 15.5px; color: var(--ink-mute);
+    max-width: 480px; margin: 0 auto 40px; line-height: 1.6;
+  }
+  .pain-visual {
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    margin-bottom: 32px;
+    background: var(--surface);
+  }
+  .pain-visual img { width: 100%; height: auto; display: block; }
+  .pain-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .pain-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px;
+  }
+  .pain-card .icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--red); font-size: 15px; font-weight: 700;
+    margin-bottom: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .pain-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* ---------- CATEGORIES ---------- */
+  .categories { padding: 64px 0; border-top: 1px solid var(--line); }
+  .cat-visual {
+    max-width: 280px; margin: 0 auto 36px;
+    border-radius: 16px; overflow: hidden;
+  }
+  .cat-visual img { width: 100%; height: auto; display: block; }
+  .cat-list { display: flex; flex-direction: column; gap: 10px; }
+  .cat-row {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 16px 18px;
+  }
+  .cat-num {
+    flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px;
+    background: rgba(77,124,255,0.1); border: 1px solid var(--line-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 14px;
+    color: var(--cyan);
+  }
+  .cat-body { flex: 1; }
+  .cat-title { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 15.5px; color: var(--ink); margin-bottom: 2px; }
+  .cat-desc { font-size: 13.5px; color: var(--ink-mute); }
+  .cat-points {
+    flex-shrink: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink-mute);
+    text-align: right; white-space: nowrap;
+  }
+
+  /* ---------- DO/DONT TEASER ---------- */
+  .ddteaser { padding: 64px 0; border-top: 1px solid var(--line); }
+  .dd-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .dd-mini {
+    border-radius: 14px; padding: 20px; border: 1px solid var(--line);
+  }
+  .dd-mini.do { background: rgba(74,222,128,0.04); border-color: rgba(74,222,128,0.25); }
+  .dd-mini.dont { background: rgba(248,113,113,0.04); border-color: rgba(248,113,113,0.25); }
+  .dd-mini-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 14px; }
+  .dd-mini.do .dd-mini-head { color: var(--green); }
+  .dd-mini.dont .dd-mini-head { color: var(--red); }
+  .dd-mini ul { list-style: none; }
+  .dd-mini li { font-size: 13.5px; color: var(--ink-soft); padding: 6px 0; border-bottom: 1px solid var(--line); line-height: 1.4; }
+  .dd-mini li:last-child { border-bottom: none; }
+
+  /* ---------- LADDER / UPSELL CONTEXT ---------- */
+  .ladder { padding: 64px 0; border-top: 1px solid var(--line); }
+  .ladder-row {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 22px;
+  }
+  .ladder-icon {
+    flex-shrink: 0; width: 46px; height: 46px; border-radius: 12px;
+    background: rgba(77,124,255,0.1); border: 1px solid var(--line-strong);
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .ladder-text { flex: 1; font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+  .ladder-text b { color: var(--ink); }
+  .ladder-arrow { color: var(--cyan); font-size: 20px; flex-shrink: 0; }
+
+  /* ---------- PRICE / FINAL CTA ---------- */
+  .price-section { padding: 72px 0 96px; border-top: 1px solid var(--line); text-align: center; }
+  .product-mockup {
+    max-width: 260px; margin: 0 auto 28px;
+  }
+  .product-mockup img { width: 100%; height: auto; display: block; filter: drop-shadow(0 20px 50px rgba(77,124,255,0.25)); }
+  .price-card {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    padding: 44px 28px;
+    box-shadow: 0 0 70px rgba(77,124,255,0.15);
+  }
+  .price-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 44px; font-weight: 700; color: var(--ink);
+    margin-bottom: 8px;
+    display: flex; align-items: baseline; justify-content: center; gap: 8px;
+    flex-wrap: wrap;
+  }
+  .price-tag .unit { font-size: 15px; color: var(--ink-mute); font-weight: 500; font-family: 'Inter', sans-serif; }
+  .price-note { font-size: 14px; color: var(--ink-mute); margin-bottom: 28px; }
+  .price-includes {
+    text-align: left; max-width: 360px; margin: 0 auto 32px;
+  }
+  .price-includes li {
+    list-style: none; display: flex; gap: 10px; align-items: flex-start;
+    font-size: 14.5px; color: var(--ink-soft); padding: 7px 0; line-height: 1.5;
+  }
+  .price-includes li .tick { color: var(--green); flex-shrink: 0; font-weight: 700; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 32px 0 40px;
+    text-align: center;
+  }
+  footer .handle {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-mute);
+  }
+  footer .tagline { margin-top: 8px; font-size: 13px; color: var(--ink-mute); font-style: italic; }
+
+  /* sticky mobile CTA */
+  .sticky-cta {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 60;
+    background: rgba(5,8,19,0.92);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line-strong);
+    padding: 12px 20px;
+    display: none;
+    align-items: center; justify-content: space-between; gap: 14px;
+    transform: translateY(100%);
+    transition: transform 0.25s ease;
+  }
+  .sticky-cta.visible { transform: translateY(0); }
+  .sticky-cta .label { font-size: 13px; color: var(--ink-soft); }
+  .sticky-cta .label b { display: block; color: var(--ink); font-family: 'JetBrains Mono', monospace; font-size: 16px; }
+  .sticky-cta .btn { padding: 12px 24px; font-size: 14.5px; white-space: nowrap; }
+
+  @media (max-width: 600px) {
+    .nav-brand { font-size: 11.5px; }
+    .nav-cta { font-size: 12.5px; padding: 8px 14px; }
+    .hero h1 { font-size: 32px; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .dd-mini-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: 23px; }
+    .sticky-cta { display: flex; }
+    .price-section { padding-bottom: 140px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">@<b>ejjaarf</b> · meta ads specialist</div>
+      <a href="#beli" class="nav-cta">Ambil Checklist</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="orb" style="width:480px;height:480px;top:-180px;left:50%;transform:translateX(-50%);"></div>
+    <div class="grid-bg"></div>
+    <div class="wrap" style="position:relative;">
+      <div class="hero-badge">40 Poin · 7 Kategori · Siap Pakai</div>
+      <h1>Sebelum klik <span class="gradient-word">Publish</span>,<br>pastikan ini semua udah dicek.</h1>
+      <p class="lead">
+        80% iklan yang boncos dimulai dari asumsi, bukan data. Checklist ini bantu kamu
+        cek semua hal penting — riset, budget, creative, sampai tracking — sebelum
+        campaign-mu jalan dan budget keluar sia-sia.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#beli" class="btn">Ambil Checklist — Rp35.000</a>
+        <div class="hero-meta">Format PDF · Bisa dicetak · <b>Langsung kepakai</b> di campaign berikutnya</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE PREVIEW -->
+  <section class="preview">
+    <div class="wrap">
+      <div class="preview-card">
+        <div class="preview-head">
+          <div class="preview-title">Coba 5 poin pertamanya</div>
+          <div class="preview-count" id="countLabel">0 / 5 dicentang</div>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+        <div class="demo-item" data-demo>
+          <div class="demo-check">
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.2 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="demo-text">Saya tahu siapa target audiens saya secara spesifik (usia, lokasi, minat, perilaku)</div>
+        </div>
+        <div class="demo-item" data-demo>
+          <div class="demo-check">
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.2 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="demo-text">Saya paham budget minimum untuk melewati fase belajar (learning phase)</div>
+        </div>
+        <div class="demo-item" data-demo>
+          <div class="demo-check">
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.2 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="demo-text">Hook visual iklan saya menarik dalam 3 detik pertama</div>
+        </div>
+        <div class="demo-item" data-demo>
+          <div class="demo-check">
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.2 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="demo-text">Pixel / CAPI sudah terpasang dan berfungsi normal (cek via Events Manager)</div>
+        </div>
+        <div class="demo-item" data-demo>
+          <div class="demo-check">
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.2 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="demo-text">Saya sudah tentukan batas evaluasi: jika dalam X hari hasilnya Y, saya akan Z</div>
+        </div>
+
+        <div class="preview-locked">🔒 35 poin lainnya + Do &amp; Don&apos;t fase testing ada di versi lengkap (PDF)</div>
+        <div class="preview-footnote">Ini cuma simulasi. Versi PDF-nya bisa kamu print &amp; centang manual tiap campaign.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN -->
+  <section class="pain">
+    <div class="wrap">
+      <div class="section-eyebrow-row"><span class="eyebrow">Relate gak?</span></div>
+      <h2 class="section-title">"Budget habis, tapi penjualan nol."</h2>
+      <p class="section-sub">Kalau ini pernah ada di kepala kamu, kemungkinan besar salah satu dari 5 hal ini yang kelewat dicek.</p>
+      <div class="pain-visual">
+        <img src="dashboard.webp" alt="Ilustrasi dashboard data iklan yang menunjukkan metrik menurun" loading="lazy" width="1200" height="1200">
+      </div>
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="icon">01</div>
+          <p>"Udah ganti-ganti creative tapi hasilnya sama aja." — biasanya bukan creative-nya, tapi budget yang kekecilan buat keluar dari learning phase.</p>
+        </div>
+        <div class="pain-card">
+          <div class="icon">02</div>
+          <p>"Kok yang lain bisa, saya kok boncos terus?" — sering kali karena pixel atau CAPI belum keverifikasi, jadi angka di Ads Manager-nya udah salah dari awal.</p>
+        </div>
+        <div class="pain-card">
+          <div class="icon">03</div>
+          <p>"CTR-nya udah bagus tapi checkout-nya nol." — landing page-nya gak match sama pesan di iklan, orang klik tapi bingung mau ngapain.</p>
+        </div>
+        <div class="pain-card">
+          <div class="icon">04</div>
+          <p>"Hire freelancer tapi hasilnya tetep mengecewakan." — kadang bukan orangnya, tapi struktur campaign-nya yang dari awal udah salah setup.</p>
+        </div>
+        <div class="pain-card">
+          <div class="icon">05</div>
+          <p>"Takut nambah budget, takut rugi lagi." — wajar, apalagi kalau belum pernah ada yang kasih cara ngecek campaign sebelum jalan.</p>
+        </div>
+        <div class="pain-card">
+          <div class="icon">+</div>
+          <p>…dan 35 hal lain yang sering kelewat, udah dirangkum jadi satu checklist yang bisa dicek 1 per 1.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="categories">
+    <div class="wrap">
+      <div class="section-eyebrow-row"><span class="eyebrow">Isi Checklist</span></div>
+      <h2 class="section-title">40 poin, dibagi jadi 7 kategori</h2>
+      <p class="section-sub">Tiap kategori nyambung satu sama lain — supaya gak ada celah dari riset sampai campaign tayang.</p>
+
+      <div class="cat-visual">
+        <img src="checklist.webp" alt="Ilustrasi tampilan checklist dengan beberapa poin sudah dicentang" loading="lazy" width="560" height="560">
+      </div>
+
+      <div class="cat-list">
+        <div class="cat-row">
+          <div class="cat-num">01</div>
+          <div class="cat-body"><div class="cat-title">Riset &amp; Strategi</div><div class="cat-desc">Target audiens, USP, objective, kompetitor</div></div>
+          <div class="cat-points">6 poin</div>
+        </div>
+        <div class="cat-row">
+          <div class="cat-num">02</div>
+          <div class="cat-body"><div class="cat-title">Anggaran &amp; Struktur Kampanye</div><div class="cat-desc">Budget, struktur ad set, learning phase</div></div>
+          <div class="cat-points">6 poin</div>
+        </div>
+        <div class="cat-row">
+          <div class="cat-num">03</div>
+          <div class="cat-body"><div class="cat-title">Creative Iklan</div><div class="cat-desc">Hook, copy, format file, CTA visual</div></div>
+          <div class="cat-points">8 poin</div>
+        </div>
+        <div class="cat-row">
+          <div class="cat-num">04</div>
+          <div class="cat-body"><div class="cat-title">Targeting &amp; Audience</div><div class="cat-desc">Ukuran audiens, overlap, pixel, lookalike</div></div>
+          <div class="cat-points">6 poin</div>
+        </div>
+        <div class="cat-row">
+          <div class="cat-num">05</div>
+          <div class="cat-body"><div class="cat-title">Landing Page &amp; Tujuan Klik</div><div class="cat-desc">Speed, message match, CTA, form/checkout</div></div>
+          <div class="cat-points">5 poin</div>
+        </div>
+        <div class="cat-row">
+          <div class="cat-num">06</div>
+          <div class="cat-body"><div class="cat-title">Tracking &amp; Konversi</div><div class="cat-desc">Pixel, event, CAPI, UTM, test events</div></div>
+          <div class="cat-points">5 poin</div>
+        </div>
+        <div class="cat-row">
+          <div class="cat-num">07</div>
+          <div class="cat-body"><div class="cat-title">Final Check Sebelum Publish</div><div class="cat-desc">Compliance, jadwal, rencana monitoring</div></div>
+          <div class="cat-points">6 poin</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DO DONT TEASER -->
+  <section class="ddteaser">
+    <div class="wrap">
+      <div class="section-eyebrow-row"><span class="eyebrow">Bonus 1 Halaman</span></div>
+      <h2 class="section-title">Plus panduan Do &amp; Don&apos;t fase testing</h2>
+      <p class="section-sub">Karena checklist doang gak cukup kalau setelah publish-nya malah panik duluan.</p>
+      <div class="dd-mini-grid">
+        <div class="dd-mini do">
+          <div class="dd-mini-head">✓ DO</div>
+          <ul>
+            <li>Biarkan iklan jalan minimal 3–7 hari</li>
+            <li>Cek performa 1–2x sehari saja</li>
+            <li>Audit dulu sebelum ubah apapun</li>
+          </ul>
+        </div>
+        <div class="dd-mini dont">
+          <div class="dd-mini-head">✕ DON'T</div>
+          <ul>
+            <li>Panik pause di 24–48 jam pertama</li>
+            <li>Edit iklan saat masih learning phase</li>
+            <li>Ubah banyak variabel sekaligus</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LADDER CONTEXT -->
+  <section class="ladder">
+    <div class="wrap">
+      <div class="ladder-row">
+        <div class="ladder-icon">📎</div>
+        <div class="ladder-text">
+          Checklist ini bikin iklanmu <b>siap</b> sebelum jalan. Kalau nanti campaign-nya sudah tayang
+          tapi hasilnya masih boncos, ada <b>Boncos Fix Kit</b> buat bantu audit dan cari akar masalahnya — itu langkah berikutnya, bukan sekarang.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICE / FINAL CTA -->
+  <section class="price-section" id="beli">
+    <div class="wrap">
+      <div class="product-mockup">
+        <img src="mockup.webp" alt="Mockup produk Checklist Sebelum Running Campaign dalam format PDF" width="520" height="520">
+      </div>
+      <div class="section-eyebrow-row"><span class="eyebrow">Siap Pakai Hari Ini</span></div>
+      <h2 class="section-title" style="margin-bottom:32px;">Satu checklist, dipakai tiap kali sebelum publish</h2>
+
+      <div class="price-card">
+        <div class="price-tag">Rp35.000 <span class="unit">/ sekali bayar</span></div>
+        <div class="price-note">Bukan subscription. Beli sekali, pakai berkali-kali untuk semua campaign-mu.</div>
+
+        <ul class="price-includes">
+          <li><span class="tick">✓</span> 40 poin checklist, 7 kategori lengkap</li>
+          <li><span class="tick">✓</span> 1 halaman Do &amp; Don&apos;t fase testing</li>
+          <li><span class="tick">✓</span> Format PDF — bisa dicetak atau dicentang di HP</li>
+          <li><span class="tick">✓</span> Bahasa simpel, langsung kepakai tanpa teori panjang</li>
+        </ul>
+
+        <a href="https://ejja-arf.myscalev.com/checklist-meta-ads" class="btn btn-block">Ambil Checklist Sekarang</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="handle">© @ejjaarf · Meta Ads Specialist</div>
+      <div class="tagline">"Stop nebak. Mulai ambil keputusan dari data."</div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta">
+    <div class="label">Checklist Sebelum Running Campaign<b>Rp35.000</b></div>
+    <a href="#beli" class="btn">Ambil Sekarang</a>
+  </div>
+
+  <script>
+    // Interactive checklist preview
+    const items = document.querySelectorAll('[data-demo]');
+    const countLabel = document.getElementById('countLabel');
+    const progressFill = document.getElementById('progressFill');
+    const total = items.length;
+
+    function updateProgress() {
+      const checked = document.querySelectorAll('[data-demo].checked').length;
+      countLabel.textContent = checked + ' / ' + total + ' dicentang';
+      progressFill.style.width = (checked / total * 100) + '%';
+    }
+
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('checked');
+        updateProgress();
+      });
+      item.setAttribute('role', 'checkbox');
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('aria-checked', 'false');
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          item.click();
+        }
+      });
+      item.addEventListener('click', () => {
+        item.setAttribute('aria-checked', item.classList.contains('checked') ? 'true' : 'false');
+      });
+    });
+
+    // Sticky CTA: muncul setelah scroll lewati hero, sembunyi lagi begitu sampai section harga
+    const stickyCta = document.getElementById('stickyCta');
+    const heroSection = document.querySelector('.hero');
+    const priceSection = document.getElementById('beli');
+
+    function updateStickyCta() {
+      if (window.innerWidth > 600) {
+        stickyCta.classList.remove('visible');
+        return;
+      }
+      const heroBottom = heroSection.getBoundingClientRect().bottom;
+      const priceTop = priceSection.getBoundingClientRect().top;
+      const viewportH = window.innerHeight;
+
+      const pastHero = heroBottom < 0;
+      const reachedPrice = priceTop < viewportH * 0.6;
+
+      if (pastHero && !reachedPrice) {
+        stickyCta.classList.add('visible');
+      } else {
+        stickyCta.classList.remove('visible');
+      }
+    }
+
+    window.addEventListener('scroll', updateStickyCta, { passive: true });
+    window.addEventListener('resize', updateStickyCta);
+    updateStickyCta();
+  </script>
+
+</body>
+</html>
